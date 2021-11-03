@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbHomeworkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Art">
+          <Key>
+            <PropertyRef Name="aNo" />
+          </Key>
+          <Property Name="aNo" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="picture" Type="nvarchar" MaxLength="50" />
+          <Property Name="introduce" Type="nvarchar(max)" />
+          <Property Name="author" Type="nvarchar" MaxLength="50" />
+          <Property Name="artName" Type="varchar" MaxLength="50" />
+          <Property Name="createTime" Type="char" MaxLength="10" />
+          <Property Name="size" Type="char" MaxLength="20" />
+          <Property Name="gNo" Type="char" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="aNo" />
+            <PropertyRef Name="cNo" />
+          </Key>
+          <Property Name="aNo" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="cNo" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="typeName" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Collects">
+          <Key>
+            <PropertyRef Name="aNo" />
+            <PropertyRef Name="fUserId" />
+          </Key>
+          <Property Name="aNo" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="fUserId" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gallery">
+          <Key>
+            <PropertyRef Name="gNo" />
+          </Key>
+          <Property Name="gNo" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="varchar" MaxLength="20" />
+          <Property Name="history" Type="nvarchar(max)" />
+          <Property Name="introduce" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="fId" />
+          </Key>
+          <Property Name="fId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fUserId" Type="nvarchar" MaxLength="50" />
+          <Property Name="fPwd" Type="nvarchar" MaxLength="50" />
+          <Property Name="fName" Type="nvarchar" MaxLength="50" />
+          <Property Name="fEmail" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Visits">
+          <Key>
+            <PropertyRef Name="gNo" />
+            <PropertyRef Name="fUserId" />
+          </Key>
+          <Property Name="gNo" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="fUserId" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Art__gNo__6B24EA82">
+          <End Role="Gallery" Type="Self.Gallery" Multiplicity="0..1" />
+          <End Role="Art" Type="Self.Art" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gallery">
+              <PropertyRef Name="gNo" />
+            </Principal>
+            <Dependent Role="Art">
+              <PropertyRef Name="gNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Category__aNo__6E01572D">
+          <End Role="Art" Type="Self.Art" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Art">
+              <PropertyRef Name="aNo" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="aNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbHomeworkModelStoreContainer">
+          <EntitySet Name="Art" EntityType="Self.Art" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Collects" EntityType="Self.Collects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gallery" EntityType="Self.Gallery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Visits" EntityType="Self.Visits" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Art__gNo__6B24EA82" Association="Self.FK__Art__gNo__6B24EA82">
+            <End Role="Gallery" EntitySet="Gallery" />
+            <End Role="Art" EntitySet="Art" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Category__aNo__6E01572D" Association="Self.FK__Category__aNo__6E01572D">
+            <End Role="Art" EntitySet="Art" />
+            <End Role="Category" EntitySet="Category" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbHomeworkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Art">
+          <Key>
+            <PropertyRef Name="aNo" />
+          </Key>
+          <Property Name="aNo" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="picture" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="introduce" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="artName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="createTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="size" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="gNo" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Gallery" Relationship="Self.FK__Art__gNo__6B24EA82" FromRole="Art" ToRole="Gallery" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__Category__aNo__6E01572D" FromRole="Art" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="aNo" />
+            <PropertyRef Name="cNo" />
+          </Key>
+          <Property Name="aNo" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="cNo" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="typeName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Art" Relationship="Self.FK__Category__aNo__6E01572D" FromRole="Category" ToRole="Art" />
+        </EntityType>
+        <EntityType Name="Collects">
+          <Key>
+            <PropertyRef Name="aNo" />
+            <PropertyRef Name="fUserId" />
+          </Key>
+          <Property Name="aNo" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="fUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gallery">
+          <Key>
+            <PropertyRef Name="gNo" />
+          </Key>
+          <Property Name="gNo" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="history" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="introduce" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Art" Relationship="Self.FK__Art__gNo__6B24EA82" FromRole="Gallery" ToRole="Art" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="fId" />
+          </Key>
+          <Property Name="fId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fPwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Visits">
+          <Key>
+            <PropertyRef Name="gNo" />
+            <PropertyRef Name="fUserId" />
+          </Key>
+          <Property Name="gNo" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="fUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Art__gNo__6B24EA82">
+          <End Role="Gallery" Type="Self.Gallery" Multiplicity="0..1" />
+          <End Role="Art" Type="Self.Art" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gallery">
+              <PropertyRef Name="gNo" />
+            </Principal>
+            <Dependent Role="Art">
+              <PropertyRef Name="gNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Category__aNo__6E01572D">
+          <End Role="Art" Type="Self.Art" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Art">
+              <PropertyRef Name="aNo" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="aNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbHomeworkEntities8" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Art" EntityType="Self.Art" />
+          <EntitySet Name="Category" EntityType="Self.Category" />
+          <EntitySet Name="Collects" EntityType="Self.Collects" />
+          <EntitySet Name="Gallery" EntityType="Self.Gallery" />
+          <EntitySet Name="Member" EntityType="Self.Member" />
+          <EntitySet Name="Visits" EntityType="Self.Visits" />
+          <AssociationSet Name="FK__Art__gNo__6B24EA82" Association="Self.FK__Art__gNo__6B24EA82">
+            <End Role="Gallery" EntitySet="Gallery" />
+            <End Role="Art" EntitySet="Art" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Category__aNo__6E01572D" Association="Self.FK__Category__aNo__6E01572D">
+            <End Role="Art" EntitySet="Art" />
+            <End Role="Category" EntitySet="Category" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbHomeworkModelStoreContainer" CdmEntityContainer="dbHomeworkEntities8">
+          <EntitySetMapping Name="Art">
+            <EntityTypeMapping TypeName="dbHomeworkModel.Art">
+              <MappingFragment StoreEntitySet="Art">
+                <ScalarProperty Name="aNo" ColumnName="aNo" />
+                <ScalarProperty Name="picture" ColumnName="picture" />
+                <ScalarProperty Name="introduce" ColumnName="introduce" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="artName" ColumnName="artName" />
+                <ScalarProperty Name="createTime" ColumnName="createTime" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="gNo" ColumnName="gNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="dbHomeworkModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="aNo" ColumnName="aNo" />
+                <ScalarProperty Name="cNo" ColumnName="cNo" />
+                <ScalarProperty Name="typeName" ColumnName="typeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Collects">
+            <EntityTypeMapping TypeName="dbHomeworkModel.Collects">
+              <MappingFragment StoreEntitySet="Collects">
+                <ScalarProperty Name="aNo" ColumnName="aNo" />
+                <ScalarProperty Name="fUserId" ColumnName="fUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gallery">
+            <EntityTypeMapping TypeName="dbHomeworkModel.Gallery">
+              <MappingFragment StoreEntitySet="Gallery">
+                <ScalarProperty Name="gNo" ColumnName="gNo" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="history" ColumnName="history" />
+                <ScalarProperty Name="introduce" ColumnName="introduce" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Member">
+            <EntityTypeMapping TypeName="dbHomeworkModel.Member">
+              <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="fId" ColumnName="fId" />
+                <ScalarProperty Name="fUserId" ColumnName="fUserId" />
+                <ScalarProperty Name="fPwd" ColumnName="fPwd" />
+                <ScalarProperty Name="fName" ColumnName="fName" />
+                <ScalarProperty Name="fEmail" ColumnName="fEmail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Visits">
+            <EntityTypeMapping TypeName="dbHomeworkModel.Visits">
+              <MappingFragment StoreEntitySet="Visits">
+                <ScalarProperty Name="gNo" ColumnName="gNo" />
+                <ScalarProperty Name="fUserId" ColumnName="fUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,13 @@
+﻿@{
+        string ControllerName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Views"]);
+        switch (ControllerName.ToUpper())
+        {
+            case "browse":
+                Layout = "~/Views/Shared/_LayoutMember.cshtml";
+                break;
+            default:
+                Layout = "~/Views/Shared/_Layout.cshtml";
+                break;
+        }
+    
+}
